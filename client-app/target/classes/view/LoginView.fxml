@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="196.0" prefWidth="390.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.dep12.client.controller.LoginViewController">
+   <children>
+      <VBox alignment="CENTER" layoutX="202.0" layoutY="54.0" spacing="10.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
+         <children>
+            <Label text="NICK NAME">
+               <font>
+                  <Font name="Ubuntu" size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtNickName" alignment="CENTER" promptText="Eg. Kasun">
+               <font>
+                  <Font name="Ubuntu" size="16.0" />
+               </font>
+            </TextField>
+            <Button fx:id="btnLogin" defaultButton="true" mnemonicParsing="false" onAction="#btnLoginOnAction" text="LOGIN">
+               <font>
+                  <Font name="Ubuntu" size="16.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
+      <Label alignment="CENTER" layoutX="269.0" layoutY="26.0" text="DEP 12 GENERAL CHAT APP: LOGIN" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+         <font>
+            <Font name="Ubuntu Bold" size="20.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

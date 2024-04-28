@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="459.0" prefWidth="600.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.dep12.client.controller.MainViewController">
+   <children>
+      <Label alignment="CENTER" layoutX="264.0" layoutY="86.0" style="-fx-background-color: black;" text="DEP 12 GENERAL CHAT APP" textFill="WHITE" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+         <font>
+            <Font name="Ubuntu Bold" size="20.0" />
+         </font>
+         <padding>
+            <Insets bottom="5.0" top="5.0" />
+         </padding>
+      </Label>
+      <VBox layoutX="10.0" layoutY="56.0" prefHeight="393.0" prefWidth="580.0" spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="56.0">
+         <children>
+            <ScrollPane fx:id="scrollpane" prefHeight="341.0" prefWidth="580.0">
+               <content>
+                  <TilePane fx:id="tilepane" prefHeight="106.0" prefWidth="131.0" />
+               </content>
+            </ScrollPane>
+            <HBox layoutX="10.0" layoutY="385.0" spacing="10.0">
+               <children>
+                  <TextField fx:id="txtImagePath" prefHeight="34.0" prefWidth="424.0" promptText="Eg. /Downloads" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="Ubuntu" size="16.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="btnAttachImage" mnemonicParsing="false" onAction="#btnAttachImageOnAction" prefHeight="9.0" prefWidth="28.0">
+                     <font>
+                        <Font name="Ubuntu Bold" size="16.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/file.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btnSendImage" defaultButton="true" layoutX="525.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSendImageOnAction" prefHeight="32.0" prefWidth="97.0" style="-fx-background-color: green;" text="SEND" textFill="WHITE">
+                     <font>
+                        <Font name="Ubuntu Bold" size="16.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
