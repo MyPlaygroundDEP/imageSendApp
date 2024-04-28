@@ -20,14 +20,18 @@ public class ServerAppInitializer {
             while (true) {
                 Socket localSocket = serverSocket.accept();
                 CLIENT_LIST.add(localSocket);
-                //  sendCurrentMSG(localSocket);
                 new Thread(() -> {
                     try {
-                        try (ObjectInputStream ois = new ObjectInputStream(localSocket.getInputStream());
-                             ObjectOutputStream ooss = new ObjectOutputStream(new FileOutputStream(dbFile))) {
-                            Message messageObject = (Message) ois.readObject();
-                            ooss.writeObject(messageObject);
-                            broadcastMSG(messageObject);
+                        InputStream is = localSocket.getInputStream();
+                        ObjectInputStream ois = new ObjectInputStream(is);
+
+                        while (true) {
+                            Message msgOBJ = (Message) ois.readObject();
+                            try (FileOutputStream fos = new FileOutputStream(dbFile);
+                                 ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+                                oos.writeObject(msgOBJ);
+                            }
+                            broadcastMSG();
                         }
                     } catch (IOException | ClassNotFoundException e) {
                         throw new RuntimeException(e);
@@ -37,8 +41,8 @@ public class ServerAppInitializer {
         }
     }
 
-    private static void broadcastMSG(Message msgOBJ) {
-        System.out.println("CLint list broadcast");
+    private static void broadcastMSG() {
+
         new Thread(() -> {
             for (Socket client : CLIENT_LIST) {
                 if (client.isConnected()) {
@@ -46,11 +50,11 @@ public class ServerAppInitializer {
 
                         try (FileInputStream fis = new FileInputStream(dbFile);
                              ObjectInputStream ois = new ObjectInputStream(fis)) {
-                           // System.out.println(client.toString());
-                            var oos = new ObjectOutputStream(client.getOutputStream());
 
+                            var oos = new ObjectOutputStream(client.getOutputStream());
                             Message msgObj = (Message) ois.readObject();
                             oos.writeObject(msgObj);
+                            System.out.println(msgObj.hashCode());
                         }
                     } catch (Exception e) {
                         throw new RuntimeException(e);
@@ -60,23 +64,6 @@ public class ServerAppInitializer {
         }).start();
     }
 
-
-    private static void sendCurrentMSG(Socket client) throws IOException {
-        if (dbFile.length() == 0) {
-            //load default image if db has no data
-            new ObjectOutputStream(client.getOutputStream()).writeObject(imageViewToByteArray());
-            return;
-        }
-        try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(dbFile))){
-
-            Message msgObj = (Message) ois.readObject();
-
-            new ObjectOutputStream(client.getOutputStream()).writeObject(msgObj);
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     public static byte[] imageViewToByteArray() throws IOException {
         File imageFile = new File("/home/ghost/Pictures/peakpx (2).jpg");
