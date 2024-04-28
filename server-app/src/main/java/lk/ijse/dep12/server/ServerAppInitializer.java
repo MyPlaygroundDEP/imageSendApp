@@ -52,9 +52,11 @@ public class ServerAppInitializer {
                              ObjectInputStream ois = new ObjectInputStream(fis)) {
 
                             var oos = new ObjectOutputStream(client.getOutputStream());
+
                             Message msgObj = (Message) ois.readObject();
                             oos.writeObject(msgObj);
-                            System.out.println(msgObj.hashCode());
+                            oos.flush();
+                           // System.out.println(msgObj.hashCode());
                         }
                     } catch (Exception e) {
                         throw new RuntimeException(e);
@@ -64,18 +66,5 @@ public class ServerAppInitializer {
         }).start();
     }
 
-
-    public static byte[] imageViewToByteArray() throws IOException {
-        File imageFile = new File("/home/ghost/Pictures/peakpx (2).jpg");
-        try (FileInputStream fis = new FileInputStream(imageFile);
-             ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
-            byte[] buffer = new byte[1024];
-            int bytesRead;
-            while ((bytesRead = fis.read(buffer)) != -1) {
-                bos.write(buffer, 0, bytesRead);
-            }
-            return bos.toByteArray();
-        }
-    }
 
 }

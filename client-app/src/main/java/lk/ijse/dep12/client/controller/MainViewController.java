@@ -31,15 +31,6 @@ public class MainViewController {
 
     public void initialize() throws IOException, ClassNotFoundException {
         remoteSocket = new Socket("localhost", 5050);
-        new Thread(() -> {
-            try {
-                ois = new ObjectInputStream(remoteSocket.getInputStream());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
-        }).start();
-
         setChatUI();
 
     }
@@ -55,7 +46,7 @@ public class MainViewController {
 
         new Thread(() -> {
             try {
-                ois = new ObjectInputStream(remoteSocket.getInputStream());
+                 ObjectInputStream ois = new ObjectInputStream(remoteSocket.getInputStream());
                 while (true) {
                     Message messageObject = (Message) ois.readObject();
                     Platform.runLater(() -> {
@@ -108,7 +99,7 @@ public class MainViewController {
                 Message msg = new Message(imgData);
                 oos.writeObject(msg);
                 oos.flush();
-                System.out.println(msg.hashCode());
+              //  System.out.println(msg.hashCode());
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
